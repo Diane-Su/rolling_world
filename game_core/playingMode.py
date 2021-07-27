@@ -45,9 +45,6 @@ class PlayingMode():
         pass
 
     def collision(self):
-        hit_wall =pygame.sprite.spritecollide(self.player,self.all_wall,False)
-        if hit_wall:
-            self.player.rect.center =[75,50]
         hit_red_ball =pygame.sprite.spritecollide(self.player,self.all_ball,False)
         if hit_red_ball:
             self.player.rect.center=[75,50]
@@ -55,14 +52,20 @@ class PlayingMode():
             pass
         pass
 
+    def hit_wall(self):
+        if self.player.rect.x <=0 and self.player.rect.y <= 0:
+            self.player.rect.center =[75,50]
+        if self.player.rect.x >=600 and self.player.rect.y >= 600:
+            self.player.rect.center =[75,50]
+
     def ticks(self,fps = FPS):
         self.clock.tick(fps)
 
     def game_over(self):
         if self.player.life == 0:
-            self.running = False
+            #self.running = Falsec
             pass
 
         if self.player.rect.x >= 570 and self.player.rect.y <= 30:
-            self.running = False
+            #self.running = False
             pass

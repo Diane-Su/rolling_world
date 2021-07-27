@@ -24,8 +24,10 @@ class PygameView():
         pygame.draw.rect(self.screen, (2,3,232),[0, 0, 600, 2], 0)
         pygame.draw.rect(self.screen, (2,3,232),[0, 598, 600, 2], 0)
         pygame.draw.rect(self.screen, (2,3,232),[280, 460, 320, 140], 4)
-        player = pygame.image.load(path.join(img_dir,"pacman.png"))
-        elf =pygame.image.load(path.join(img_dir,"pinky.png"))
+        player = pygame.image.load(path.join(img_dir,"pacman.png")).convert()
+        player = pygame.transform.scale(player, (50, 50))
+        pinky =pygame.image.load(path.join(img_dir,"pinky.png")).convert()
+        pinky =pygame.transform.scale(pinky,(30,30))
         # print("Data in gameview : {}".format(data))
         # pygame.transform.flip(Surface, true, false)
         # pygame.transform.rotate(Surface, angle)
@@ -44,11 +46,11 @@ class PygameView():
                     self.screen.blit(pygame.transform.flip(pygame.transform.rotate(player, -90), True, False), dic["ball_coordinate"])
 
                 # pygame.draw.circle(self.screen, (0,0,255), dic["ball_coordinate"], 20, 0)
-            else:
-                if dic["ball_direction"] == "left":
-                    self.screen.blit(pygame.transform.flip(enemy, False, False), dic["ball_coordinate"])
-                if dic["ball_direction"] == "right":
-                    self.screen.blit(pygame.transform.flip(enemy, True, False), dic["ball_coordinate"])
+            #else:
+                #if dic["ball_direction"] == "left":
+                    #self.screen.blit(pygame.transform.flip(enemy, False, False), dic["ball_coordinate"])
+                #if dic["ball_direction"] == "right":
+                    #self.screen.blit(pygame.transform.flip(enemy, True, False), dic["ball_coordinate"])
         self.screen.blit(self.screen, (0,0))
 
     def draw_screen(self):
