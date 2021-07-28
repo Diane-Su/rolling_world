@@ -13,8 +13,7 @@ class Rolling_world():
     def get_player_scene_info(self):
         pass
 
-    def update(self):
-        cmds = self.controller.get_keyboard_command()
+    def update(self, cmds):
         self.gameObject = self.gamecore.update(cmds)
         self.draw(self.gameObject)
         self.gamecore.ticks()
