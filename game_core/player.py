@@ -9,9 +9,9 @@ class Player(pygame.sprite.Sprite):
         self.ball_info = {}
         self.directions = ""
         self.image =pygame.image.load(path.join(IMAGE_DIR,"pacman.png"))
+        self.image =pygame.transform.scale(self.image,(50,50))
         self.rect =self.image.get_rect()
         self.rect.center =(75,50)
-        self.image =pygame.transform.scale(self.image,(30,30))
         pass
 
     def update(self,command):

@@ -13,6 +13,10 @@ class PygameView():
         self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
         pygame.display.set_caption("Rolling World")
         self.address = "GameView"
+        self.player = pygame.image.load(path.join(img_dir, "pacman.png")).convert()
+        self.player = pygame.transform.scale(self.player, (50, 50))
+        self.pinky = pygame.image.load(path.join(img_dir, "pinky.png")).convert()
+        self.pinky = pygame.transform.scale(self.pinky, (30, 30))
         # self.screen.blit(lives, (490,540))
 
     def draw(self,data):
@@ -24,10 +28,6 @@ class PygameView():
         pygame.draw.rect(self.screen, (2,3,232),[0, 0, 600, 2], 0)
         pygame.draw.rect(self.screen, (2,3,232),[0, 598, 600, 2], 0)
         pygame.draw.rect(self.screen, (2,3,232),[280, 460, 320, 140], 4)
-        player = pygame.image.load(path.join(img_dir,"pacman.png")).convert()
-        player = pygame.transform.scale(player, (50, 50))
-        pinky =pygame.image.load(path.join(img_dir,"pinky.png")).convert()
-        pinky =pygame.transform.scale(pinky,(30,30))
         # print("Data in gameview : {}".format(data))
         # pygame.transform.flip(Surface, true, false)
         # pygame.transform.rotate(Surface, angle)
@@ -35,15 +35,20 @@ class PygameView():
         for dic in data:
             if dic["ball_name"] == "Blue_ball":
                 if dic["ball_direction"] == "":
-                    self.screen.blit(pygame.transform.flip(player, True, False), dic["ball_coordinate"])
+                    self.screen.blit(pygame.transform.flip(self.player, True, False), dic["ball_coordinate"])
                 if dic["ball_direction"] == "left":
-                    self.screen.blit(pygame.transform.flip(player, False, False), dic["ball_coordinate"])
+                    self.screen.blit(pygame.transform.flip(self.player, False, False), dic["ball_coordinate"])
                 if dic["ball_direction"] == "right":
-                    self.screen.blit(pygame.transform.flip(player, True, False), dic["ball_coordinate"])
+                    self.screen.blit(pygame.transform.flip(self.player, True, False), dic["ball_coordinate"])
                 if dic["ball_direction"] == "down":
-                    self.screen.blit(pygame.transform.flip(pygame.transform.rotate(player, 90), True, False), dic["ball_coordinate"])
+                    self.screen.blit(pygame.transform.flip(pygame.transform.rotate(self.player, 90), True, False), dic["ball_coordinate"])
                 if dic["ball_direction"] == "up":
-                    self.screen.blit(pygame.transform.flip(pygame.transform.rotate(player, -90), True, False), dic["ball_coordinate"])
+                    self.screen.blit(pygame.transform.flip(pygame.transform.rotate(self.player, -90), True, False), dic["ball_coordinate"])
+            if dic["ball_name"] == "red_ball":
+                if dic["ball_direction"] == "":
+                    self.screen.blit(pygame.transform.flip(self.pinky, True, False), dic["ball_coordinate"])
+                if dic["ball_name"] == "red_ball":
+                    self.screen.blit(pygame.transform.flip(self.pinky, False, False), dic["ball_coordinate"])
 
                 # pygame.draw.circle(self.screen, (0,0,255), dic["ball_coordinate"], 20, 0)
             #else:

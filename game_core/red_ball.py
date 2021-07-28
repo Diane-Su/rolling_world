@@ -12,6 +12,7 @@ class Red_ball(pygame.sprite.Sprite):
         self.direction ='None'
         self.ball_info ={}
         self.image_pinky =pygame.image.load(path.join(IMAGE_DIR,"pinky.png"))
+        self.image_pinky =pygame.transform.scale(self.image_pinky,(30,30))
         self.rect = self.image_pinky.get_rect()
         self.rect.center =self.pinky_pos_x,self.pinky_pos_y
         pass

@@ -52,11 +52,11 @@ class PlayingMode():
             pass
         pass
 
-    def hit_wall(self):
-        if self.player.rect.x <=0 and self.player.rect.y <= 0:
-            self.player.rect.center =[75,50]
-        if self.player.rect.x >=600 and self.player.rect.y >= 600:
-            self.player.rect.center =[75,50]
+    #def hit_wall(self):
+        #if self.player.rect.x <=0 and self.player.rect.y <= 0:
+            #self.player.rect.center =[75,50]
+        #if self.player.rect.x >=600 and self.player.rect.y >= 600:
+            #self.player.rect.center =[75,50]
 
     def ticks(self,fps = FPS):
         self.clock.tick(fps)
