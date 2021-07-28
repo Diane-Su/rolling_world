@@ -10,7 +10,15 @@ class Rolling_world():
         self.gameObject = None
         pass
 
-    def get_player_scene_info(self):
+    def get_scene_init_data(self):
+        # TODO
+        pass
+
+    def get_scene_prgress_data(self):
+        # TODO
+        pass
+
+    def game_to_player_data(self):
         pass
 
     def update(self, cmds):
@@ -31,24 +39,6 @@ class Rolling_world():
     def draw(self,object):
         self.view.draw(object)
         self.view.flip()
-
-    def get_scene_info(self):
-        """
-        Get the scene information
-        """
-        pass
-
-    def get_game_info(self):
-        """
-        Get the scene and object information for drawing on the web
-        """
-        pass
-
-    def get_game_progress(self):
-        """
-        Get the position of game objects for drawing on the web
-        """
-        pass
 
     def get_game_result(self):
         """
