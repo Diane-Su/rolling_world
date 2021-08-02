@@ -23,7 +23,11 @@ class PlayingMode():
         self.player = Player()
         self.wall = Wall()
         self.big_wall = Big_wall()
-        self.red_ball = Red_ball()
+        self.pinky = Red_ball("pinky",200,400,-2)
+        self.punky = Red_ball("punky",500,310,-4)
+        self.inky = Red_ball("inky",200,220,-3)
+        self.clyde = Red_ball("clyde",500,130,-3)
+        self.blinky = Red_ball("blinky",200,40,-4)
         self.edge_up = Edge_up()
         self.edge_down =Edge_down()
         self.edge_left =Edge_left()
@@ -32,14 +36,22 @@ class PlayingMode():
         pass
 
     def update(self,data):    #data為一個dictionary list裡面為字串
-        self.all_ball.add(self.red_ball)
+        self.all_ball.add(self.pinky,self.punky,self.inky,self.clyde,self.blinky)
         self.all_wall.add(self.wall,self.big_wall,self.edge_up,self.edge_down,self.edge_left,self.edge_right)
         self.transfer＿information = []
         self.player.update(data)
-        self.red_ball.update()
+        self.pinky.update()
+        self.punky.update()
+        self.inky.update()
+        self.clyde.update()
+        self.blinky.update()
         self.collision()
         self.transfer＿information.append(self.player.get_ball_data())
-        self.transfer＿information.append(self.red_ball.ball_info)
+        self.transfer＿information.append(self.blinky.ball_info)
+        self.transfer＿information.append(self.pinky.ball_info)
+        self.transfer＿information.append(self.punky.ball_info)
+        self.transfer＿information.append(self.inky.ball_info)
+        self.transfer＿information.append(self.clyde.ball_info)
         self.game_over()
         return self.transfer＿information
         pass

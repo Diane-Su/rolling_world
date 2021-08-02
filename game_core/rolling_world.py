@@ -1,22 +1,64 @@
+from os import path
+import pygame
+from setting import *
 from playingMode import PlayingMode
 from controller import EventController
 from gameView import PygameView
+from mlgame.gamedev.game_interface import PaiaGame
+from mlgame.view.test_decorator import check_game_progress
+from mlgame.view.view_model import create_rect_view_data, create_text_view_data, create_asset_init_data, create_image_view_data, Scene
 
-class Rolling_world():
+class Rolling_world(PaiaGame):
     def __init__(self):
+        super().__init__()
+        self.scene = Scene(width=600, height=600, color="#000000", bias_x=0, bias_y=0)
         self.gamecore = PlayingMode()
         self.view = PygameView()
         self.controller = EventController()
         self.gameObject = None
+        self.is_running = True
         pass
 
     def get_scene_init_data(self):
-        # TODO
-        pass
+        # background = create_rect_view_data("background",0 , 0, 600, 600, "#000000", 0)
 
-    def get_scene_prgress_data(self):
-        # TODO
-        pass
+        pacman = create_asset_init_data("pacman", 54, 51, path.join(IMAGE_DIR,"pacman.png") , "url")
+        pinky = create_asset_init_data("pinky", 50, 50, path.join(IMAGE_DIR,"pinky.png"), "url")
+        punky = create_asset_init_data("punky", 50, 50, path.join(IMAGE_DIR,"punky.png"), "url")
+        clyde = create_asset_init_data("clyde", 50, 50, path.join(IMAGE_DIR,"clyde.png"), "url")
+        inky = create_asset_init_data("inky", 50, 50, path.join(IMAGE_DIR,"inky.png"), "url")
+        blinky = create_asset_init_data("blinky", 50, 50, path.join(IMAGE_DIR,"blinky.png"), "url")
+        scene_init_data = {"scene": self.scene.__dict__,
+                           "assets": [pacman, pinky, punky,clyde, inky, blinky]
+                           }
+        return scene_init_data
+
+    def get_scene_progress_data(self):
+        center_wall = create_rect_view_data("center_wall", 150, 0, 10, 450, "0202e8", 0)
+        corner_wall = create_rect_view_data("corner_wall", 280, 460, 320, 140, "0202e8", 0)
+        for dic in self.gameObject:
+            if dic["ball_name"] == "Blue_ball":
+                pacman = create_image_view_data("pacman", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+            elif dic["ball_name"] == "pinky":
+                pinky = create_image_view_data("pinky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+            elif dic["ball_name"] == "punky":
+                punky = create_image_view_data("punky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+            elif dic["ball_name"] == "inky":
+                inky = create_image_view_data("inky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+            elif dic["ball_name"] == "clyde":
+                clyde = create_image_view_data("clyde", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+            elif dic["ball_name"] == "blinky":
+                blinky = create_image_view_data("blinky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
+
+        game_progress = {
+            "background": [],
+            "object_list": [center_wall,corner_wall,pacman,pinky,punky,inky,clyde,blinky],
+            "toggle": [],
+            "foreground": [],
+            "user_info": [],
+            "game_sys_info": {}
+        }
+        return game_progress
 
     def game_to_player_data(self):
         pass
@@ -33,15 +75,30 @@ class Rolling_world():
     def isRunning(self):
         if self.gamecore.running == False:
             self.controller.running = False
-        running = self.controller.is_running()
-        return running
+        self.is_running = self.controller.is_running()
+        return self.is_running
 
-    def draw(self,object):
-        self.view.draw(object)
-        self.view.flip()
+    # def draw(self,object):
+    #     self.view.draw(object)
+    #     self.view.flip()
 
     def get_game_result(self):
         """
         Get the game result for the web
         """
         pass
+
+
+    def get_keyboard_command(self):
+        cmd_1p = ["None"]
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            cmd_1p.append("MOVE_LEFT")
+        if keys[pygame.K_RIGHT]:
+            cmd_1p.append("MOVE_RIGHT")
+        if keys[pygame.K_UP]:
+            cmd_1p.append("MOVE_UP")
+        if keys[pygame.K_DOWN]:
+            cmd_1p.append("MOVE_DOWN")
+
+        return {"1P": cmd_1p}
