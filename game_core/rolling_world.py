@@ -3,7 +3,7 @@ import pygame
 from setting import *
 from playingMode import PlayingMode
 from controller import EventController
-from gameView import PygameView
+# from gameView import PygameView
 from mlgame.gamedev.game_interface import PaiaGame
 from mlgame.view.test_decorator import check_game_progress
 from mlgame.view.view_model import create_rect_view_data, create_text_view_data, create_asset_init_data, create_image_view_data, Scene
@@ -13,46 +13,55 @@ class Rolling_world(PaiaGame):
         super().__init__()
         self.scene = Scene(width=600, height=600, color="#000000", bias_x=0, bias_y=0)
         self.gamecore = PlayingMode()
-        self.view = PygameView()
+        # self.view = PygameView()
         self.controller = EventController()
         self.gameObject = None
         self.is_running = True
         pass
 
     def get_scene_init_data(self):
-        # background = create_rect_view_data("background",0 , 0, 600, 600, "#000000", 0)
-
-        pacman = create_asset_init_data("pacman", 54, 51, path.join(IMAGE_DIR,"pacman.png") , "url")
-        pinky = create_asset_init_data("pinky", 50, 50, path.join(IMAGE_DIR,"pinky.png"), "url")
-        punky = create_asset_init_data("punky", 50, 50, path.join(IMAGE_DIR,"punky.png"), "url")
-        clyde = create_asset_init_data("clyde", 50, 50, path.join(IMAGE_DIR,"clyde.png"), "url")
-        inky = create_asset_init_data("inky", 50, 50, path.join(IMAGE_DIR,"inky.png"), "url")
-        blinky = create_asset_init_data("blinky", 50, 50, path.join(IMAGE_DIR,"blinky.png"), "url")
+        pacman = create_asset_init_data("pacmanLeft", 54, 51, path.join(IMAGE_DIR,"pacmanLeft.png") , "url")
+        pacmanR = create_asset_init_data("pacmanRight", 54, 51, path.join(IMAGE_DIR,"pacmanRight.png") , "url")
+        pacmanU = create_asset_init_data("pacmanUp", 54, 51, path.join(IMAGE_DIR,"pacmanUp.png") , "url")
+        pacmanD = create_asset_init_data("pacmanDown", 54, 51, path.join(IMAGE_DIR,"pacmanDown.png") , "url")
+        pinky = create_asset_init_data("pinkyLeft", 50, 50, path.join(IMAGE_DIR,"pinkyLeft.png"), "url")
+        pinkyR = create_asset_init_data("pinkyRight", 50, 50, path.join(IMAGE_DIR,"pinkyRight.png"), "url")
+        punky = create_asset_init_data("punkyLeft", 50, 50, path.join(IMAGE_DIR,"punkyLeft.png"), "url")
+        punkyR = create_asset_init_data("punkyRight", 50, 50, path.join(IMAGE_DIR,"punkyRight.png"), "url")
+        clyde = create_asset_init_data("clydeLeft", 50, 50, path.join(IMAGE_DIR,"clydeLeft.png"), "url")
+        clydeR = create_asset_init_data("clydeRight", 50, 50, path.join(IMAGE_DIR,"clydeRight.png"), "url")
+        inky = create_asset_init_data("inkyLeft", 50, 50, path.join(IMAGE_DIR,"inkyLeft.png"), "url")
+        inkyR = create_asset_init_data("inkyRight", 50, 50, path.join(IMAGE_DIR,"inkyRight.png"), "url")
+        blinky = create_asset_init_data("blinkyLeft", 50, 50, path.join(IMAGE_DIR,"blinkyLeft.png"), "url")
+        blinkyR = create_asset_init_data("blinkyRight", 50, 50, path.join(IMAGE_DIR,"blinkyRight.png"), "url")
         scene_init_data = {"scene": self.scene.__dict__,
-                           "assets": [pacman, pinky, punky,clyde, inky, blinky]
+                           "assets": [pacman, pinky, punky,clyde, inky, blinky,
+                           pacmanR, pinkyR, punkyR,clydeR, inkyR, blinkyR,pacmanU,pacmanD]
                            }
         return scene_init_data
 
     def get_scene_progress_data(self):
-        center_wall = create_rect_view_data("center_wall", 150, 0, 10, 450, "0202e8", 0)
-        corner_wall = create_rect_view_data("corner_wall", 280, 460, 320, 140, "0202e8", 0)
+        listOfObject = []
+        playerDirection = "Right"
+        enemyDirection = "Right"
+        listOfObject.append(create_rect_view_data("center_wall", 150, 0, 10, 450, "0202e8", 0))
+        listOfObject.append(create_rect_view_data("corner_wall", 280, 460, 320, 10, "0202e8", 0))
+        listOfObject.append(create_rect_view_data("corner_wall", 280, 460, 10, 140, "0202e8", 0))
         for dic in self.gameObject:
             if dic["ball_name"] == "Blue_ball":
-                pacman = create_image_view_data("pacman", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-            elif dic["ball_name"] == "pinky":
-                pinky = create_image_view_data("pinky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-            elif dic["ball_name"] == "punky":
-                punky = create_image_view_data("punky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-            elif dic["ball_name"] == "inky":
-                inky = create_image_view_data("inky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-            elif dic["ball_name"] == "clyde":
-                clyde = create_image_view_data("clyde", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-            elif dic["ball_name"] == "blinky":
-                blinky = create_image_view_data("blinky", dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0)
-
+                if dic["ball_direction"]!="":
+                    playerDirection = dic["ball_direction"]
+                if dic["ball_direction"] == "Up" or dic["ball_direction"] == "Down":
+                    listOfObject.append(create_image_view_data("pacman"+playerDirection, dic["ball_coordinate"][0],dic["ball_coordinate"][1], 51, 54, 0))
+                else:
+                    listOfObject.append(create_image_view_data("pacman"+playerDirection, dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0))
+            else:
+                if dic["ball_direction"]!="":
+                    enemyDirection = dic["ball_direction"]
+                listOfObject.append(create_image_view_data(dic["ball_name"]+enemyDirection, dic["ball_coordinate"][0],dic["ball_coordinate"][1], 54, 51, 0))
         game_progress = {
             "background": [],
-            "object_list": [center_wall,corner_wall,pacman,pinky,punky,inky,clyde,blinky],
+            "object_list": listOfObject,
             "toggle": [],
             "foreground": [],
             "user_info": [],
