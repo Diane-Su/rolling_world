@@ -21,15 +21,19 @@ class Player(pygame.sprite.Sprite):
 
     def ball_move(self,direction):
         if "MOVE_UP" in direction["Data"]:   #往上移動
+            print(self.rect.x, self.rect.y)
             self.rect.y -=5
             self.directions = "up"
         if "MOVE_DOWN" in direction["Data"]:  #往下移動
+            print(self.rect.x, self.rect.y)
             self.rect.y +=5
             self.directions = "down"
         if "MOVE_RIGHT" in direction["Data"]:   #往右移動
+            print(self.rect.x,self.rect.y)
             self.rect.x +=4
             self.directions = "right"
         if "MOVE_LEFT" in direction["Data"]:   #往左移動
+            print(self.rect.x,self.rect.y)
             self.rect.x -=4
             self.directions = "left"
 

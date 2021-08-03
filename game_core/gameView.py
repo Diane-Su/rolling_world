@@ -23,11 +23,8 @@ class PygameView():
         # {"red_ball":red_ball,}
         self.screen.fill((0, 0, 0))
         pygame.draw.rect(self.screen, (2,3,232),[150, 0, 10, 450], 4)
-        pygame.draw.rect(self.screen, (2,3,232),[0, 0, 2, 600], 0)
-        pygame.draw.rect(self.screen, (2,3,232),[598, 0, 2, 600], 0)
-        pygame.draw.rect(self.screen, (2,3,232),[0, 0, 600, 2], 0)
-        pygame.draw.rect(self.screen, (2,3,232),[0, 598, 600, 2], 0)
         pygame.draw.rect(self.screen, (2,3,232),[280, 460, 320, 140], 4)
+        pygame.draw.rect(self.screen, (2,3,232),[500, 0, 510, 50], 4)
         # print("Data in gameview : {}".format(data))
         # pygame.transform.flip(Surface, true, false)
         # pygame.transform.rotate(Surface, angle)
