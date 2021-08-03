@@ -35,7 +35,7 @@ class Rolling_world(PaiaGame):
         blinky = create_asset_init_data("blinkyLeft", 50, 50, path.join(IMAGE_DIR,"blinkyLeft.png"), "url")
         blinkyR = create_asset_init_data("blinkyRight", 50, 50, path.join(IMAGE_DIR,"blinkyRight.png"), "url")
         scene_init_data = {"scene": self.scene.__dict__,
-                           "assets": [pacman, pinky, punky,clyde, inky, blinky,
+                           "assets": [pacman, pinky, punky, clyde, inky, blinky,
                            pacmanR, pinkyR, punkyR,clydeR, inkyR, blinkyR,pacmanU,pacmanD]
                            }
         return scene_init_data
