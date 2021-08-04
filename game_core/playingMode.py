@@ -15,10 +15,10 @@ class PlayingMode():
         self.all_ball =pygame.sprite.Group()
         self.player = Player()
         self.pinky = Red_ball("pinky",200,400,-2)
-        self.punky = Red_ball("punky",500,310,-4)
-        self.inky = Red_ball("inky",200,220,-3)
-        self.clyde = Red_ball("clyde",500,130,-3)
-        self.blinky = Red_ball("blinky",200,40,-4)
+        self.punky = Red_ball("punky",500,320,-4)
+        self.inky = Red_ball("inky",200,240,-3)
+        self.clyde = Red_ball("clyde",500,160,-3)
+        self.blinky = Red_ball("blinky",200,80,-4)
         self.transfer＿information = []
 
     def update(self,data):    #data為一個dictionary list裡面為字串

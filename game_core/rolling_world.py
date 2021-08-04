@@ -33,9 +33,10 @@ class Rolling_world(PaiaGame):
         inkyR = create_asset_init_data("inkyRight", 50, 50, path.join(IMAGE_DIR,"inkyRight.png"), "url")
         blinky = create_asset_init_data("blinkyLeft", 50, 50, path.join(IMAGE_DIR,"blinkyLeft.png"), "url")
         blinkyR = create_asset_init_data("blinkyRight", 50, 50, path.join(IMAGE_DIR,"blinkyRight.png"), "url")
+        fruit = create_asset_init_data("fruit", 50, 52, path.join(IMAGE_DIR,"fruit.png"), "url" )
         scene_init_data = {"scene": self.scene.__dict__,
                            "assets": [pacman, pinky, punky, clyde, inky, blinky,
-                           pacmanR, pinkyR, punkyR,clydeR, inkyR, blinkyR,pacmanU,pacmanD]
+                           pacmanR, pinkyR, punkyR,clydeR, inkyR, blinkyR,pacmanU,pacmanD, fruit]
                            }
         return scene_init_data
 
@@ -43,6 +44,7 @@ class Rolling_world(PaiaGame):
         listOfObject = []
         playerDirection = "Right"
         enemyDirection = "Right"
+        listOfObject.append(create_image_view_data("fruit", 555, 20, 25, 26, 0))
         listOfObject.append(create_rect_view_data("center_wall", 150, 0, 10, 450, "0202e8", 0))
         listOfObject.append(create_rect_view_data("corner_wall", 280, 460, 320, 10, "0202e8", 0))
         listOfObject.append(create_rect_view_data("corner_wall", 280, 460, 10, 140, "0202e8", 0))
