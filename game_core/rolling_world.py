@@ -13,7 +13,6 @@ class Rolling_world(PaiaGame):
         super().__init__()
         self.scene = Scene(width=600, height=600, color="#000000", bias_x=0, bias_y=0)
         self.gamecore = PlayingMode()
-        # self.view = PygameView()
         self.controller = EventController()
         self.gameObject = None
         self.is_running = True

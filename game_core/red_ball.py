@@ -16,7 +16,6 @@ class Red_ball(pygame.sprite.Sprite):
         self.image_pinky =pygame.transform.scale(self.image_pinky,(30,30))
         self.rect = self.image_pinky.get_rect()
         self.rect.center =self.pos_x,self.pos_y
-        pass
 
     def update(self):
         self.ball_info = {"ball_name":self.ball_name,
@@ -36,4 +35,3 @@ class Red_ball(pygame.sprite.Sprite):
             self.vel_x = -1*self.vel_x
         self.pos_x += self.vel_x
         self.rect.center = self.pos_x, self.pos_y
-        pass

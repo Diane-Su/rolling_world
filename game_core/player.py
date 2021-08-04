@@ -30,6 +30,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x +=4
             self.directions = "Right"
         if "MOVE_LEFT" in direction["1P"]:   #往左移動
+
             self.rect.x -=4
             self.directions = "Left"
 
