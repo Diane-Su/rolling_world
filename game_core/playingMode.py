@@ -14,7 +14,6 @@ class PlayingMode():
         self.address = "GameMode"
         self.all_ball =pygame.sprite.Group()
         self.player = Player()
-        self.wall = Wall()
         self.big_wall = Big_wall()
         self.pinky = Red_ball("pinky",200,400,-2)
         self.punky = Red_ball("punky",500,310,-4)
@@ -30,7 +29,6 @@ class PlayingMode():
 
     def update(self,data):    #data為一個dictionary list裡面為字串
         self.all_ball.add(self.pinky,self.punky,self.inky,self.clyde,self.blinky)
-        self.all_wall.add(self.wall,self.big_wall,self.edge_up,self.edge_down,self.edge_left,self.edge_right)
         self.transfer＿information = []
         self.player.update(data)
         self.pinky.update()
