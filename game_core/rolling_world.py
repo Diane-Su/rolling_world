@@ -75,7 +75,6 @@ class Rolling_world(PaiaGame):
 
     def update(self, cmds):
         self.gameObject = self.gamecore.update(cmds)
-        # self.draw(self.gameObject)
         self.gamecore.ticks()
 
     def reset(self):
