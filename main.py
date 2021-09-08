@@ -5,16 +5,16 @@ import pygame
 
 from mlgame.view.view import PygameView
 from mlgame.gamedev.generic import quit_or_esc
-import rolling_world
+from game_core.rolling_world import Rolling_world
 
 FPS = 30
 if __name__ == '__main__':
     pygame.init()
-    game = rolling_world.Rolling_world()
+    game = Rolling_world()
     scene_init_info_dict = game.get_scene_init_data()
     game_view = PygameView(scene_init_info_dict)
     frame_count = 0
-    while game.is_running and not quit_or_esc():
+    while game.isRunning() and not quit_or_esc():
         pygame.time.Clock().tick_busy_loop(FPS)
         commands = game.get_keyboard_command()
         game.update(commands)

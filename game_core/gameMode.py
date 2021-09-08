@@ -1,5 +1,5 @@
 import pygame
-from game_core.setting import *
+from .setting import *
 
 
 class GameMode(object):

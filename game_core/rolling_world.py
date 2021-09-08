@@ -1,10 +1,10 @@
 from os import path
 import pygame
-from setting import *
-from playingMode import PlayingMode
-from controller import EventController
+from .setting import *
+from .playingMode import PlayingMode
+from .controller import EventController
 # from gameView import PygameView
-from mlgame.gamedev.game_interface import PaiaGame
+from mlgame.gamedev.game_interface import PaiaGame, GameResultState, GameStatus
 from mlgame.view.test_decorator import check_game_progress
 from mlgame.view.view_model import create_rect_view_data, create_text_view_data, create_asset_init_data, create_image_view_data, Scene
 
@@ -44,6 +44,9 @@ class Rolling_world(PaiaGame):
         listOfObject = []
         playerDirection = "Right"
         enemyDirection = "Right"
+        for sprite in self.gamecore.all_ball:
+            listOfObject.append(create_rect_view_data("a", sprite.pos_x, sprite.pos_y, 30, 30, "#ffffff"))
+        listOfObject.append(create_rect_view_data("a", self.gamecore.player.rect.x, self.gamecore.player.rect.y, 50, 50, "#ffffff"))
         listOfObject.append(create_image_view_data("fruit", 555, 20, 25, 26, 0))
         listOfObject.append(create_rect_view_data("center_wall", 150, 0, 10, 450, "0202e8", 0))
         listOfObject.append(create_rect_view_data("corner_wall", 280, 460, 320, 10, "0202e8", 0))
@@ -71,7 +74,19 @@ class Rolling_world(PaiaGame):
         return game_progress
 
     def game_to_player_data(self):
-        pass
+        listElves =[]
+        for i in self.gamecore.all_ball:
+            listElves.append(i.get_elvesData())
+        return {"1P":{
+            "frame":self.frame_count,
+            "status":GameStatus.GAME_ALIVE,
+            "x":self.gamecore.player.rect.x,
+            "y":self.gamecore.player.rect.y,
+            "screen_width":WIDTH,
+            "screen_heigth":HEIGHT,
+            "all_elves":listElves,
+            "fruit":self.gamecore.fruit,
+        }}
 
     def update(self, cmds):
         self.gameObject = self.gamecore.update(cmds)
@@ -83,8 +98,8 @@ class Rolling_world(PaiaGame):
 
     def isRunning(self):
         if self.gamecore.running == False:
+            self.is_running = False
             self.controller.running = False
-        self.is_running = self.controller.is_running()
         return self.is_running
 
     # def draw(self,object):

@@ -1,8 +1,7 @@
 import pygame
-from setting import *
-from player import Player
-from red_ball import Red_ball
-
+from .setting import *
+from .player import Player
+from .red_ball import Red_ball
 import random
 
 class PlayingMode():
@@ -19,10 +18,13 @@ class PlayingMode():
         self.inky = Red_ball("inky",200,240,-3)
         self.clyde = Red_ball("clyde",500,160,-3)
         self.blinky = Red_ball("blinky",200,80,-4)
+        self.fruit = Red_ball("fruit",555,20,0)
+        self.end_p = pygame.sprite.Group()
+        self.end_p.add(self.fruit)
         self.transfer＿information = []
+        self.all_ball.add(self.pinky,self.punky,self.inky,self.clyde,self.blinky)
 
     def update(self,data):    #data為一個dictionary list裡面為字串
-        self.all_ball.add(self.pinky,self.punky,self.inky,self.clyde,self.blinky)
         self.transfer＿information = []
         self.player.update(data)
         self.pinky.update()
@@ -30,6 +32,7 @@ class PlayingMode():
         self.inky.update()
         self.clyde.update()
         self.blinky.update()
+        self.fruit.update()
         self.collision()
         self.hit_wall()
         self.transfer＿information.append(self.player.get_ball_data())
@@ -66,10 +69,8 @@ class PlayingMode():
     def game_over(self):
         if self.player.life == 0:
             self.running = False
-            pass
-
-        if self.player.rect.x >= 510 and self.player.rect.y <= -20:
+        end = pygame.sprite.spritecollide(self.player, self.end_p, False)
+        if end:
+            print("collied")
             self.running = False
-            pass
-        if 425 <= self.player.rect.x <= 530 and -30 <= self.player.rect.y <=30:
-            self.running = False
+        pass
